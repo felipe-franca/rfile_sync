@@ -7,12 +7,14 @@
 # Author: Felipe França<https://github.com/felipe-franca>
 # -----------------------------------------------------------------------------
 
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
 # shellcheck disable=SC1091
-source config.conf
+source "$SCRIPT_DIR/config.conf"
 # shellcheck disable=SC1091
-source push.sh
+source "$SCRIPT_DIR/push.sh"
 # shellcheck disable=SC1091
-source pull.sh
+source "$SCRIPT_DIR/pull.sh"
 
 handle_params() {
   if [ $# -ne 1 ]; then
