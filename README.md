@@ -28,10 +28,12 @@ Execute the main script with the desired operation:
 
 ## Configuration
 - `config.conf`: Defines the target local full path (`TARGET_PATH`).
+- `config.conf`: Defines remote name (`REMOTE_NAME`).
 
 ```bash
 # config.conf
-TARGET_PATH="/home/ubuntu/Documents/Projects"
+TARGET_PATH="/home/foo/bar"
+REMOTE_NAME="my-remote"
 ```
 
 ## Tips
