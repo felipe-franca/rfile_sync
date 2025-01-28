@@ -15,6 +15,8 @@ source "$SCRIPT_DIR/config.conf"
 source "$SCRIPT_DIR/push.sh"
 # shellcheck disable=SC1091
 source "$SCRIPT_DIR/pull.sh"
+# shellcheck disable=SC1091
+source "$SCRIPT_DIR/sync.sh"
 
 handle_params() {
   if [ $# -ne 1 ]; then
@@ -64,6 +66,12 @@ main() {
       echo "Synced with success!"
     else
       echo "Failed pulling files from cloud!"
+    fi
+  elif [ "$operation" == "sync" ]; then
+    if sync $TARGET_PATH; then
+      echo "Synced with success!"
+    else
+      echo "Failed to sync files to cloud!"
     fi
   else
     echo "Invalid operation: \"$operation\"";
