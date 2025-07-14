@@ -17,18 +17,22 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 # shellcheck disable=SC1091
 source "$SCRIPT_DIR/config.conf"
+
 # shellcheck disable=SC1091
 source "$SCRIPT_DIR/push.sh"
+
 # shellcheck disable=SC1091
 source "$SCRIPT_DIR/pull.sh"
+
 # shellcheck disable=SC1091
 source "$SCRIPT_DIR/sync-remote.sh"
+
 # shellcheck disable=SC1091
 source "$SCRIPT_DIR/sync-local.sh"
 
 handle_params() {
   if [ $# -ne 1 ]; then
-    echo "Usage: <command> <push|pull|sync>" >&2;
+    echo "Usage: <command> <push|pull|sync>" >&2
 
     return 1
   fi
@@ -37,7 +41,7 @@ handle_params() {
 main() {
   handle_params "$@" || exit 1
 
-  local operation="$1";
+  local operation="$1"
 
   if [ "$operation" == "push" ]; then
     echo "Syncing files up to cloud..."
@@ -70,30 +74,30 @@ main() {
       fi
     done
   elif [ "$operation" == "pull" ]; then
-    if pull $TARGET_PATH; then
+    if pull "$TARGET_PATH"; then
       echo "Synced with success!"
     else
       echo "Failed pulling files from cloud!"
     fi
   elif [ "$operation" == "sync-remote" ]; then
-    if sync_remote $TARGET_PATH; then
+    if sync_remote "$TARGET_PATH"; then
       echo "Synced with success!"
     else
       echo "Failed to sync files to cloud!"
     fi
   elif [ "$operation" == "sync-local" ]; then
-    if sync_local $TARGET_PATH; then
+    if sync_local "$TARGET_PATH"; then
       echo "Synced with success!"
     else
       echo "Failed to sync files from cloud!"
     fi
   else
-    echo "Invalid operation: \"$operation\"";
-    echo "Usage: <command> <push|pull|sync-remote|sync-local>" >&2;
+    echo "Invalid operation: \"$operation\""
+    echo "Usage: <command> <push|pull|sync-remote|sync-local>" >&2
     exit 1
-  fi;
+  fi
 
-  exit 0;
+  exit 0
 }
 
 main "$@"
